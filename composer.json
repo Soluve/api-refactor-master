@@ -1,0 +1,7 @@
+{
+    "require": {
+        "cloudinary/cloudinary_php": "^2.10",
+        "phpmailer/phpmailer": "*",
+        "ralouphie/getallheaders": "*"
+    }
+}
