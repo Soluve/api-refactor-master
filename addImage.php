@@ -32,9 +32,9 @@ if(isset($_FILES['uploader'])) {
         
         $cloudinary = new Cloudinary([
             'cloud' => [
-                'cloud_name' => 'depwk4x6c',
-                'api_key'    => '929924193147645',
-                'api_secret' => 'cr9QAMo2ANjeDKSktAsNnyrYNI4',
+                'cloud_name' => ' ',
+                'api_key'    => ' ',
+                'api_secret' => ' ',
             ],
         ]);
         
