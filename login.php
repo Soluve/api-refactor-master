@@ -1,5 +1,8 @@
 <?php include("./config.php");
 ini_set('display_errors', 0);
+require 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../');
+$dotenv->load();
 
 require_once(ROOT_PATH . "/functions/registration_login.php");
 $login = loginUser(); 
@@ -21,7 +24,7 @@ header("Content-type: application/json");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
+use Firebase\JWT\JWT;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
@@ -37,7 +40,7 @@ try {
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'pakamo20@gmail.com';                     //SMTP username
-    $mail->Password   = '';                               //SMTP password
+    $mail->Password   = $_ENV['MAIL_PASSWORD'];                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -60,7 +63,25 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     try {
-        echo json_encode($login);
+        
+
+        // secret key
+        $secretKey = $_ENV['SECRET_KEY'];
+
+        // Sample data to encode in the token
+        $payload = [
+            "user_id" => $user_detail['id'],
+            "exp" => time() + (60 * 60) // Token expiration (1 hour)
+        ];
+
+        // Encode the payload to generate a JWT
+        $jwt = JWT::encode($payload, $secretKey, 'HS256');
+        $JWTres = array(
+            "JWT" => $jwt
+        );
+        $loginData = array_merge(array($login), array($JWTres));
+        // echo "Generated JWT: " . $jwt;
+        echo (json_encode($loginData));
         ob_start(); // Start output buffering
         $mail->send();
         $_SESSION['user_id'] = $user_detail['id'];

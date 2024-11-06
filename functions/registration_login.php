@@ -203,11 +203,11 @@ function loginUser () {
             //     $response = array("status" => "Success", "message" => $message, "data" => $user_detail);
             //     return $response;
                 if ($user_detail) {
-                    // Set `user_id` in the session
-                    $_SESSION['user_id'] = $user_detail['id'];
+                     
                 
                     // Prepare the success response
                     http_response_code(200);
+                    
                     $message = "User login successfully";
                     $response = array(
                         "status" => "Success",

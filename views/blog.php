@@ -12,16 +12,16 @@
 <body>
 <?php
     
-    // session_start();
+    session_start();
     
-    // // Function to check if user is logged in
-    // function checkLogin() {
-    //     if (!isset($_SESSION['user_id'])) {
-    //         header("Location: login.php");
-    //         exit();
-    //     } 
-    // }
-    // checkLogin();
+    // Function to check if user is logged in
+    function checkLogin() {
+        if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+            header("Location: login.php");
+            exit();
+        } 
+    }
+    checkLogin();
     ?>
     <!-- Header -->
     <header class="header">
