@@ -80,7 +80,7 @@ function createBlog()
             //remove cookies
             return 'blogs exist';
         }
-        $sql = 'INSERT INTO blogs (`title`, `content`, `author`, `imgPath_url`, `img_name`, `bytes`, `category_id`) VALUES (?,?,?,?,?,?,?)';
+        $sql = 'INSERT INTO blogs (`title`, `content`, `author_id`, `imgPath_url`, `img_name`, `bytes`, `category_id`) VALUES (?,?,?,?,?,?,?)';
         $query = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($query, 'ssissii', $title, $content, $user_id, $imgPath_url, $img_name, $size, $category);
         mysqli_stmt_execute($query);
