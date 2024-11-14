@@ -1,7 +1,10 @@
-<?php include("./config.php"); ?>
+<?php include("./config.php"); 
+ini_set('display_errors', 0);
+?>
 <?php require_once(ROOT_PATH . "/functions/getBlogs.php") ?>
 <?php $blog = getSingleBlog(); ?>
 <?php $blogs = getAllBlogs(); ?>
+
 <?php
 
 header("Access-Control-Allow-Origin: *");

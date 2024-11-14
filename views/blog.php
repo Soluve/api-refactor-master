@@ -34,7 +34,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Articles</a></li>
+                <li><a href="articles.php">Articles</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
@@ -76,7 +76,7 @@
             <!-- Recent Posts -->
             <section class="recent-posts">
                 <h2>Recent Posts</h2>
-                <div class="post-grid">
+                <div class="post-grid" id="blogs-container">
                     <article class="post-card">
                         <div class="post-image">
                             <img src="/api/placeholder/400/300" alt="Post 1">
@@ -206,6 +206,6 @@
             document.querySelector('.nav-links').classList.toggle('active');
         });
     </script>
-
+    <script src="blog.js"></script>
 </body>
 </html>

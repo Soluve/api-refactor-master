@@ -11,7 +11,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 require_once (__DIR__ . '/vendor/autoload.php');
-
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../');
+$dotenv->load();
 use Cloudinary\Cloudinary;
 use Cloudinary\Transformation\Resize;
 
@@ -33,9 +34,9 @@ if (isset($_FILES['uploader'])) {
     $cloudinary = new Cloudinary(
       [
         'cloud' => [
-          'cloud_name' => 'depwk4x6c',
-          'api_key' => '929924193147645',
-          'api_secret' => 'cr9QAMo2ANjeDKSktAsNnyrYNI4',
+          'cloud_name' => $_ENV["CLOUD_NAME"],
+          'api_key' => $_ENV["API_KEY"],
+          'api_secret' => $_ENV["API_SECRET"],
         ],
       ]
     );

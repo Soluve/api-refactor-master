@@ -1,5 +1,6 @@
 <?php include("../config.php") ?>
 <?php 
+ini_set('display_errors', 0);
 function updateBlog(){
     global $conn;
      if($_SERVER["REQUEST_METHOD"] == "PUT" || $_SERVER["REQUEST_METHOD"] == "PATCH"){
@@ -84,7 +85,7 @@ function updateBlog(){
         $response = array("status" => "Fail", "message" => $message);
         return $response;
     }
-    $update_sql = "UPDATE blogs SET `title`=?, `content`=?, `category_id`=?, `published`=?, `author`=?, updated_at=now() WHERE id=?";
+    $update_sql = "UPDATE blogs SET `title`=?, `content`=?, `category_id`=?, `published`=?, `author_id`=?, updated_at=now() WHERE id=?";
     $update_query = mysqli_prepare($conn, $update_sql);
     mysqli_stmt_bind_param($update_query, "ssiiii", $title, $content, $category,  $published, $author_id, $blog_id);
     mysqli_stmt_execute($update_query);
@@ -127,22 +128,22 @@ function deleteBlog(){
 
     $user_policies = $user_result["policies"];
     $user_policies = json_decode($user_policies);
-    $policy_array = [];
-    for($i = 0; $i <= count($user_policies); $i++){
-    $priv_sql = "SELECT * FROM `policies` WHERE id=?";
-    $policy_query = mysqli_prepare($conn, $priv_sql);
-    mysqli_stmt_bind_param($policy_query, "i", $user_policies[$i]);
-    mysqli_stmt_execute($policy_query);
-    $stmt_policy_result = mysqli_stmt_get_result($policy_query);
-    $policy_result = mysqli_fetch_assoc($stmt_policy_result);
-    array_push($policy_array, $policy_result["privileges"]);
-    }
-    if(!in_array("can-delete-blog", $policy_array)){
-        http_response_code(401);
-        $message = "Unauthorized";
-        $response = array("status" => "Fail", "message" => $message);
-        return $response;
-    }
+        $policy_array = [];
+        for($i = 0; $i <= count($user_policies); $i++){
+        $priv_sql = "SELECT * FROM `policies` WHERE id=?";
+        $policy_query = mysqli_prepare($conn, $priv_sql);
+        mysqli_stmt_bind_param($policy_query, "i", $user_policies[$i]);
+        mysqli_stmt_execute($policy_query);
+        $stmt_policy_result = mysqli_stmt_get_result($policy_query);
+        $policy_result = mysqli_fetch_assoc($stmt_policy_result);
+        array_push($policy_array, $policy_result["privileges"]);
+        }
+        if(!in_array("can-delete-blog", $policy_array)){
+            http_response_code(401);
+            $message = "Unauthorized";
+            $response = array("status" => "Fail", "message" => $message);
+            return $response;
+        }
 
     $path = explode("/", $_SERVER["REQUEST_URI"]);
     if(!isset($path[3])) {

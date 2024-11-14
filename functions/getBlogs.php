@@ -7,6 +7,7 @@ function getAllBlogs(){
       $blog_sql = "SELECT * FROM blogs WHERE published=1";
         $blog_result = mysqli_query($conn, $blog_sql);
         $blogs = mysqli_fetch_all($blog_result, MYSQLI_ASSOC);
+
         $data = [];
         if(count($blogs) < 1){
         http_response_code(404);
@@ -16,12 +17,15 @@ function getAllBlogs(){
         }
         foreach($blogs as $blog){
 
-            $user = getAuthor($blog["author"]);
+            $user = getAuthor($blog["author_id"]);
+            $category = getCategory(["category_id"]);
             $blog["username"] = $user["fname"] . " " . $user["lname"];
+            $blog["category"] = $category["category"];
             array_push($data, $blog);
         }
         http_response_code(200);
         $response = array("status" => "Success", "data" => $data);
+
         return $response;
 
 }
@@ -112,11 +116,20 @@ function getAuthor($id){
         $stmt_result = mysqli_stmt_get_result($query);
         $result = mysqli_fetch_assoc($stmt_result);
         return $result;
+}function getCategory($id){
+    global $conn;
+    $sql = "SELECT `category` FROM categories WHERE id=? ";
+    $query = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($query, 'i', $id);
+    mysqli_stmt_execute($query);
+    $stmt_result = mysqli_stmt_get_result($query);
+    $result = mysqli_fetch_assoc($stmt_result);
+    return $result;
 }
 
 function getBlogsComments ($id){
         global $conn;
-        $sql = "SELECT `id`, `comment`, `author` FROM `comments` WHERE blog_id= ? ";
+        $sql = "SELECT `id`, `comment`, `author`, `created_at` FROM `comments` WHERE blog_id= ? ";
         $query = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($query, 'i', $id);
         mysqli_stmt_execute($query);
