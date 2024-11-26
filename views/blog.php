@@ -37,6 +37,7 @@
                 <li><a href="articles.php">Articles</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Contact</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
             </ul>
         </nav>
     </header>

@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Login Section -->
-    <!-- <section id="login-section">
+    <section id="login-section">
         <h2>Login to Dashboard</h2>
         <form id="login-form">
             <div>
@@ -19,12 +19,13 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" id="submit">Login</button>
         </form>
-    </section> -->
+    </section>
+    
 
     <!-- Main Dashboard -->
-    <main id="dashboard" hidden>
+    <main id="dashboard"  hidden>
         <!-- Navigation -->
         <nav>
             <ul>
@@ -51,16 +52,26 @@
                         <input type="text" id="blog-title" name="title" required>
                     </div>
                     <div>
+                        <label for="blog-title">Add image:</label>
+                        <input type="file" id="imageFile" name="uploader" required>
+                    </div>
+                    <div>
                         <label for="blog-category">Category:</label>
                         <select id="blog-category" name="category" required>
                             <option value="">Select Category</option>
+                            <option value="1">Front end Development</option>
+                            <option value="2">Back end Development</option>
+                            <option value="3">Full Stack Development</option>
+                            <option value="4">UI/UX</option>
+                            <option value="5">Data Analytics</option>
+                            <option value="6">Cyber Security</option>
                         </select>
                     </div>
                     <div>
                         <label for="blog-content">Content:</label>
                         <textarea id="blog-content" name="content" required></textarea>
                     </div>
-                    <button type="submit">Create Post</button>
+                    <button type="submit" id="createPost">Create Post</button>
                 </form>
             </div>
 
@@ -188,5 +199,6 @@
             <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
         </form>
     </dialog>
+    <script src="dashboard.js"></script>
 </body>
 </html>

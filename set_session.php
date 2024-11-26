@@ -38,7 +38,7 @@ $auth_header = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZAT
         
         // Send success response
         header('Content-Type: application/json');
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, ]);
     } else {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Invalid data received']);

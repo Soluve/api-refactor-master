@@ -30,17 +30,14 @@ function imgUpload($img, $fileName, $uploads, $uploadTo)
 function createBlog()
 {
     global $conn;
-    if ($_SERVER['REQUEST_METHOD'] = 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!isset($_SERVER['HTTP_AUTHORIZATION']) && !isset($_COOKIE['imgInfo'])) {
             return 'Unauthorized';
         };
         $get_id = $_SERVER['HTTP_AUTHORIZATION'];
         $id = explode(' ', $get_id);
         $user_id = $id[1];
-        $imgPath = $_COOKIE['imgInfo'];
-        $imgPath = json_decode($imgPath);
-        $imgPath = json_encode($imgPath);
-        $imgPath = json_decode($imgPath);
+        $imgPath = json_decode($_COOKIE['imgInfo'], true); // Use true to get associative array
         $imgPath_url = $imgPath->url;
         $img_name = $imgPath->file_name;
         $size = $imgPath->size;

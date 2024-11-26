@@ -90,7 +90,9 @@ if(!isset($_SERVER["HTTP_AUTHORIZATION"])){
         $role_query = mysqli_prepare($conn, $create_role_sql);
         mysqli_stmt_bind_param($role_query, "iss", $user_id, $policy_id_arrays, $name );
         mysqli_stmt_execute($role_query);        
+         
         if($role_query){
+            // $update_userTable_sql = "UPDATE `users` SET `role` = $name WHERE `users`.`id` = $user_id";
             $message = "Role successfully created";
             $response = array("status" => "Success", "message" => $message );
             return $response;    

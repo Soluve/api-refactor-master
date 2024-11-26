@@ -29,12 +29,12 @@ form.addEventListener("submit", async (e) => {
         // console.log("Server response:", JSON.stringify(responseData));
         if (responseData[0].status === "Success") {
             // console.log("Attempting redirect...");
-            const JWT = responseData[1].JWT;
-            sessionStorage.setItem('JWT', JWT);  // This stores the token in sessionStorage
-            window.token = JWT; 
+            const auth = responseData[0].data.id;
+            sessionStorage.setItem('Authorisation', auth);  // This stores the token in sessionStorage
+            window.token = auth; 
+            // console.log(token);
             setSessionData(responseData[0].data) 
-            // window.location.href = './blog.php';
-            // console.log("After redirect line"); 
+            
         } else {
             console.log("Status condition not met");
         }
@@ -50,7 +50,7 @@ function setSessionData(userData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${Usetoken}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(userData)
     })
