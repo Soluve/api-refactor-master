@@ -1,4 +1,8 @@
-<?php include("../config.php"); ?>
+<?php 
+// ini_set('display_errors', 0);
+include("../config.php"); 
+
+?>
 <?php 
 
 function getCategories() {

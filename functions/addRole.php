@@ -1,4 +1,6 @@
-<?php include("../config.php") ?>
+<?php 
+ini_set("display_errors", 0);
+include("../config.php") ?>
 <?php  
 
 function addRole(){
@@ -85,7 +87,7 @@ if(!isset($_SERVER["HTTP_AUTHORIZATION"])){
             array_push($policy_id_arrays, strval($policy_result["id"]));
         }
         $policy_id_arrays = json_encode($policy_id_arrays);
-        echo $policy_id_arrays;
+        // echo $policy_id_arrays;
         $create_role_sql = "INSERT INTO roles (`user_id`, `policies`, `name`) VALUES (?, ?, ?)";
         $role_query = mysqli_prepare($conn, $create_role_sql);
         mysqli_stmt_bind_param($role_query, "iss", $user_id, $policy_id_arrays, $name );

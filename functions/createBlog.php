@@ -30,14 +30,17 @@ function imgUpload($img, $fileName, $uploads, $uploadTo)
 function createBlog()
 {
     global $conn;
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] = 'POST') {
         if (!isset($_SERVER['HTTP_AUTHORIZATION']) && !isset($_COOKIE['imgInfo'])) {
             return 'Unauthorized';
         };
         $get_id = $_SERVER['HTTP_AUTHORIZATION'];
         $id = explode(' ', $get_id);
         $user_id = $id[1];
-        $imgPath = json_decode($_COOKIE['imgInfo'], true); // Use true to get associative array
+        $imgPath = $_COOKIE['imgInfo'];
+        $imgPath = json_decode($imgPath);
+        $imgPath = json_encode($imgPath);
+        $imgPath = json_decode($imgPath);
         $imgPath_url = $imgPath->url;
         $img_name = $imgPath->file_name;
         $size = $imgPath->size;
@@ -53,53 +56,58 @@ function createBlog()
 
             return $response;
         }
-        $data = file_get_contents('php://input');
-        $data = json_decode($data);
-        $title = $data->title;
-        $content = htmlentities($data->content);
-        $category = $data->category_id;
-        // $imgPath_url = $data;
-        // $img_name = $data;
-        // $size = $data;
-        if (!$title || !$content || !$category) {
+        if (isset($_POST['json'])) {
+            $data = json_decode($_POST['json'], true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                die('JSON decode error: ' . json_last_error_msg());
+            }
+        
+            $title = esc($data['title']) ?? null;
+            $content = esc($data['content']) ?? null;
+            $category_id = esc($data['category_id']) ?? null;
+            // $imgPath_url = $data;
+            // $img_name = $data;
+            // $size = $data;
+            if (!$title || !$content || !$category_id) {
+                http_response_code(400);
+                $message = 'All fields are required';
+                $response = json_encode(['status' => 'Fail', 'message' => $message]);
+    
+                return $response;
+            }
+            $title = esc($data['title']);
+            $content = esc($data['content']);
+            $category = esc($data['category_id']);
+            $sql = "SELECT * FROM `blogs` WHERE `title` = '$title'";
+            $result = mysqli_query($conn, $sql);
+            if (mysqli_num_rows($result) == 1) {
+                $response = json_encode(['message' => 'blog exists']);
+                return $response;
+            }
+            $sql = 'INSERT INTO blogs (`title`, `content`, `author_id`, `published`, `imgPath_url`, `img_name`, `bytes`, `category_id`) VALUES (?,?,?,1,?,?,?,?)';
+            $query = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($query, 'ssissii', $title, $content, $user_id, $imgPath_url, $img_name, $size, $category);
+            mysqli_stmt_execute($query);
+            if (!$query) {
+                http_response_code(500);
+                $message = 'Something went wrong, try again';
+                $response = json_encode(['status' => 'Fail', 'message' => $message]);
+    
+                return $response;
+            }
+            http_response_code(201);
+            $message = 'Blog created successfully';
+            $response = json_encode(['status' => 'Success', 'message' => $message]);
+    
+            return $response;
+        } else {
             http_response_code(400);
-            $message = 'All fields are required';
+            $message = 'Bad request';
             $response = json_encode(['status' => 'Fail', 'message' => $message]);
-
+    
             return $response;
         }
-        $title = esc($data->title);
-        $content = esc($data->content);
-        $category = esc($data->category_id);
-        $sql = "SELECT * FROM `blogs` WHERE `title` = '$title'";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) == 1) {
-            //remove cookies
-            return 'blogs exist';
         }
-        $sql = 'INSERT INTO blogs (`title`, `content`, `author_id`, `published`, `imgPath_url`, `img_name`, `bytes`, `category_id`) VALUES (?,?,?,1,?,?,?,?)';
-        $query = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($query, 'ssissii', $title, $content, $user_id, $imgPath_url, $img_name, $size, $category);
-        mysqli_stmt_execute($query);
-        if (!$query) {
-            http_response_code(500);
-            $message = 'Something went wrong, try again';
-            $response = json_encode(['status' => 'Fail', 'message' => $message]);
-
-            return $response;
-        }
-        http_response_code(201);
-        $message = 'Blog created successfully';
-        $response = json_encode(['status' => 'Success', 'message' => $message]);
-
-        return $response;
-    } else {
-        http_response_code(400);
-        $message = 'Bad request';
-        $response = json_encode(['status' => 'Fail', 'message' => $message]);
-
-        return $response;
-    }
 }
 
 function esc(String $value)

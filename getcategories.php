@@ -1,4 +1,6 @@
-<?php include("./config.php"); ?>
+<?php include("./config.php"); 
+ini_set('display_errors', 0);
+?>
 <?php require_once(ROOT_PATH . "/functions/getCategories.php"); ?>
 <?php $categories = getCategories(); ?>
 

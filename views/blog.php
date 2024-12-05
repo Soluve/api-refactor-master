@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>Soluve's Tech Corner</title>
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome for icons -->
      <link rel="stylesheet" href="blog.css">
@@ -27,7 +27,7 @@
     <header class="header">
         <nav class="nav-container">
             <div class="logo">
-                <h1>Blog Title</h1>
+                <h1>Soluve's Tech Corner</h1>
             </div>
             <div class="nav-toggle" id="navToggle">
                 <i class="fas fa-bars"></i>
@@ -56,21 +56,8 @@
             <!-- Featured Posts -->
             <section class="featured-posts">
                 <h2>Featured Posts</h2>
-                <div class="post-grid">
-                    <article class="post-card featured">
-                        <div class="post-image">
-                            <img src="/api/placeholder/800/400" alt="Featured post">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="date">Nov 5, 2024</span>
-                                <span class="category">Technology</span>
-                            </div>
-                            <h3>The Future of Web Development</h3>
-                            <p>Exploring the latest trends and technologies shaping the future of web development...</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </article>
+                <div class="post-grid" id="featured">
+                    
                 </div>
             </section>
 
@@ -78,52 +65,21 @@
             <section class="recent-posts">
                 <h2>Recent Posts</h2>
                 <div class="post-grid" id="blogs-container">
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="/api/placeholder/400/300" alt="Post 1">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="date">Nov 4, 2024</span>
-                                <span class="category">Design</span>
-                            </div>
-                            <h3>Principles of Modern UI Design</h3>
-                            <p>Understanding the key principles that make modern user interfaces effective...</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </article>
-
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="/api/placeholder/400/300" alt="Post 2">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="date">Nov 3, 2024</span>
-                                <span class="category">Productivity</span>
-                            </div>
-                            <h3>Maximizing Your Work Efficiency</h3>
-                            <p>Tips and strategies for improving your productivity and work-life balance...</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </article>
-
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="/api/placeholder/400/300" alt="Post 3">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="date">Nov 2, 2024</span>
-                                <span class="category">Health</span>
-                            </div>
-                            <h3>Staying Healthy While Working Remote</h3>
-                            <p>Essential tips for maintaining physical and mental health while working from home...</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </article>
+                     
                 </div>
             </section>
+
+            <div id="blogModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div id="modalLoading" class="modal-loading">
+                    Loading blog details...
+                    </div>
+                    <div id="modalBody" class="modal-body" style="display: none;">
+                    <!-- Blog details will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
 
             <!-- Sidebar -->
             <aside class="sidebar">

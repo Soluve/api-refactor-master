@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Administration Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    
 </head>
 <body>
     <!-- Login Section -->
@@ -35,7 +36,7 @@
                 <li><a href="#roles">Roles</a></li>
             </ul>
             <div>
-                <span id="user-name">User Name</span>
+                <span id="user-role">User Name</span>
                 <button id="logout-btn">Logout</button>
             </div>
         </nav>
@@ -57,14 +58,9 @@
                     </div>
                     <div>
                         <label for="blog-category">Category:</label>
-                        <select id="blog-category" name="category" required>
-                            <option value="">Select Category</option>
-                            <option value="1">Front end Development</option>
-                            <option value="2">Back end Development</option>
-                            <option value="3">Full Stack Development</option>
-                            <option value="4">UI/UX</option>
-                            <option value="5">Data Analytics</option>
-                            <option value="6">Cyber Security</option>
+                        <button type="menu" id="getCategory">Choose category</button>
+                        <select id="blog-category" name="category" required hidden>
+                        <option value="" id="prompt" hidden>Select Category</option>
                         </select>
                     </div>
                     <div>
@@ -95,41 +91,6 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
-        <section id="categories-section">
-            <h2>Categories</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category Name</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="categories-table-body">
-                    <!-- Categories will be inserted here -->
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Users Section -->
-        <section id="users-section">
-            <h2>User Management</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="users-table-body">
-                    <!-- Users will be inserted here -->
-                </tbody>
-            </table>
-        </section>
-
         <!-- Roles Section -->
         <section id="roles-section">
             <h2>Role Management</h2>
@@ -138,25 +99,25 @@
                 <h3>Add New Role</h3>
                 <form id="add-role-form">
                     <div>
+                        <label for="user-id">User ID:</label>
+                        <input type="text" id="user-id" name="userID" required>
+                    </div>
+                    <div>
                         <label for="role-name">Role Name:</label>
                         <input type="text" id="role-name" name="roleName" required>
                     </div>
                     <div>
-                        <label for="role-description">Description:</label>
-                        <textarea id="role-description" name="description"></textarea>
-                    </div>
-                    <div>
                         <h4>Permissions:</h4>
-                        <input type="checkbox" id="perm-create" name="permissions" value="create">
-                        <label for="perm-create">Create</label>
-                        <input type="checkbox" id="perm-read" name="permissions" value="read">
-                        <label for="perm-read">Read</label>
-                        <input type="checkbox" id="perm-update" name="permissions" value="update">
-                        <label for="perm-update">Update</label>
-                        <input type="checkbox" id="perm-delete" name="permissions" value="delete">
-                        <label for="perm-delete">Delete</label>
+                        <input type="checkbox" id="perm-update-blog" name="permissions" value="can-update-blog">
+                        <label for="perm-create">Update blog</label>
+                        <input type="checkbox" id="perm-delete-blog" name="permissions" value="can-delete-blog">
+                        <label for="perm-read">Delete blog</label>
+                        <input type="checkbox" id="perm-create-admin" name="permissions" value="can-create-admin">
+                        <label for="perm-update">Create Admin</label>
+                        <input type="checkbox" id="perm--user" name="permissions" value="can-delete-user">
+                        <label for="perm-delete">Delete User</label>
                     </div>
-                    <button type="submit">Add Role</button>
+                    <button type="submit" id="addRole">Add Role</button>
                 </form>
             </div>
 
@@ -164,14 +125,15 @@
             <table>
                 <thead>
                     <tr>
+                        <th>User ID</th>
                         <th>Role Name</th>
-                        <th>Description</th>
                         <th>Permissions</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="roles-table-body">
                     <!-- Roles will be inserted here -->
+                    
                 </tbody>
             </table>
         </section>

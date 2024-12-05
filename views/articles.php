@@ -6,7 +6,7 @@
     <title>Articles</title>
     <link rel="stylesheet" href="blog.css">
 </head>
-<body>
+<body id="article-body">
     <?php
     session_start();
     
@@ -37,25 +37,21 @@
         </nav>
     </header>
 
-    <div class="post-grid" id="blogs-container">
-                    <article class="post-card">
-                        <div class="post-image">
-                            <img src="/api/placeholder/400/300" alt="Post 1">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-meta">
-                                <span class="date">Nov 4, 2024</span>
-                                <span class="category">Design</span>
-                            </div>
-                            <h3>Principles of Modern UI Design</h3>
-                            <p>Understanding the key principles that make modern user interfaces effective...</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </article>
-
-                     
+    <div class="post-grid" id="blogs-container-a" style="width: 80%; margin: 0 auto;">
+                                          
+    </div>
+    <div id="blogModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div id="modalLoading" class="modal-loading">
+                    Loading blog details...
+                    </div>
+                    <div id="modalBody" class="modal-body" style="display: none;">
+                    <!-- Blog details will be dynamically inserted here -->
+                    </div>
                 </div>
-    <script src="blog.js"></script>
+            </div>
+    <script src="articles.js"></script>
     <script>
         // Simple mobile menu toggle
         document.getElementById('navToggle').addEventListener('click', function() {
