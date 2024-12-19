@@ -2,7 +2,7 @@
 ini_set('display_errors', 0);
 include("../config.php") ?>
 <?php
-function getUsers(){
+function getRoles(){
     global $conn;
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         if(!isset($_SERVER["HTTP_AUTHORIZATION"])){
@@ -43,7 +43,7 @@ function getUsers(){
         $response = array("status" => "Fail", "message" => $message);
         return $response;
         }
-        $sql = "SELECT `email`, `id`, `lname`, `fname` FROM `users`";
+        $sql = "SELECT `user_id`, `name`, `policies` FROM `roles`";
         $query = mysqli_query($conn, $sql);
         $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
         if(!$query){
@@ -52,7 +52,7 @@ function getUsers(){
         return $response;   
         }
         if(count($result) < 1){
-        $message = "No registered user yet";
+        $message = "No role added yet";
         $response = array("status" => "Fail", "message" => $message);
         return $response;
         }

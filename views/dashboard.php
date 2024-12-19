@@ -59,13 +59,13 @@
                     <div>
                         <label for="blog-category">Category:</label>
                         <button type="menu" id="getCategory">Choose category</button>
-                        <select id="blog-category" name="category" required hidden>
+                        <select id="blog-category" name="category" hidden>
                         <option value="" id="prompt" hidden>Select Category</option>
                         </select>
                     </div>
                     <div>
                         <label for="blog-content">Content:</label>
-                        <textarea id="blog-content" name="content" required></textarea>
+                        <textarea id="blog-content" name="content" ></textarea>
                     </div>
                     <button type="submit" id="createPost">Create Post</button>
                 </form>
@@ -91,6 +91,19 @@
             </div>
         </section>
 
+        <div id="updateModal" class="modal">
+                <div class="modal-content">
+                    <span class="modal-close">&times;</span>
+                    <div id="modalLoading" class="modal-loading">
+                    Loading update form...
+                    
+                    </div>
+                    <div id="modalBody" class="modal-body" style="display: none;">
+                    
+                    </div>
+                </div>
+            </div>
+
         <!-- Roles Section -->
         <section id="roles-section">
             <h2>Role Management</h2>
@@ -100,7 +113,11 @@
                 <form id="add-role-form">
                     <div>
                         <label for="user-id">User ID:</label>
-                        <input type="text" id="user-id" name="userID" required>
+                        <button id="get-user-id">Get users</button>
+                        <select id="user-id" name="userID" hidden>
+                        <option value="" id="prompt" hidden>Select user</option>
+                        </select>
+                         
                     </div>
                     <div>
                         <label for="role-name">Role Name:</label>
@@ -125,7 +142,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>User ID</th>
+                         
                         <th>Role Name</th>
                         <th>Permissions</th>
                         <th>Actions</th>
@@ -140,7 +157,7 @@
     </main>
 
     <!-- Update Blog Modal -->
-    <dialog id="update-blog-modal">
+    <!-- <dialog id="update-blog-modal">
         <h3>Update Blog Post</h3>
         <form id="update-blog-form">
             <div>
@@ -160,7 +177,9 @@
             <button type="submit">Update Post</button>
             <button type="button" onclick="this.closest('dialog').close()">Cancel</button>
         </form>
-    </dialog>
+    </dialog> -->
     <script src="dashboard.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+     
 </body>
 </html>

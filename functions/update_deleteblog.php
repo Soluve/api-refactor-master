@@ -129,7 +129,7 @@ function deleteBlog(){
     $user_policies = $user_result["policies"];
     $user_policies = json_decode($user_policies);
         $policy_array = [];
-        for($i = 0; $i <= count($user_policies); $i++){
+        for($i = 0; $i < count($user_policies); $i++){
         $priv_sql = "SELECT * FROM `policies` WHERE id=?";
         $policy_query = mysqli_prepare($conn, $priv_sql);
         mysqli_stmt_bind_param($policy_query, "i", $user_policies[$i]);
@@ -176,8 +176,8 @@ function deleteBlog(){
         return $response;
     }
     http_response_code(200);
-        $message =  "Blog with id " . $id . " successfully deleted";
-        $response = array("status" => "Fail", "message" => $message);
+        $message =  "Blog with id " . $blog_id . " successfully deleted";
+        $response = array("status" => "Success", "message" => $message);
         return $response;
      }
      http_response_code(400);

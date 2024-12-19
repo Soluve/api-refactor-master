@@ -41,11 +41,12 @@ form.addEventListener("submit", async (e) => {
         
     } catch (error) {
         console.error("Error:", error.message);
+        alert("Unable to login, please retry...")
     }
     
 });
 function setSessionData(userData) {
-    const Usetoken = sessionStorage.getItem('token');
+    const Usetoken = sessionStorage.getItem('auth');
     fetch('/set_session.php', {
       method: 'POST',
       headers: {

@@ -31,27 +31,40 @@ async function getBlogs() {
     }
 }
 
+// function to slice blog text
+function sliceWords(text) {
+    const numWords = 20;
+    return text.split(" ").slice(0, numWords).join(" ");
+}
+
 function displayFeatured(blogs){
     const blogsContainer = document.getElementById('featured');
-        
-    blogsContainer.innerHTML = blogs.slice(-3).map(blog => `
-        <article class="post-card">
-        <div class="post-image">
-            <img src="${blog.imgPath_url}">
-        </div>
-        <div class="post-content">
-            <div class="post-meta">
-                <span class="date">${blog.created_at}</span>
-                <span class="category">${blog.category}</span>
-                <span id="blog-id" hidden>${blog.id}</span>
-            </div>
-            <h2>${blog.title}</h2>
-            <h5>${blog.username}</h5>
-            <p>${blog.content}</p>
-            <a href="#" class="read-more">Read More</a>
-        </div>    
-        </article>
-    `).join('');
+            
+    const blogsHTML = blogs.slice(-3).map(blog => {
+        const slicedBlogContent = (sliceWords(blog.content)) + "..."; // Call sliceWords inside the loop
+        return `
+            <article class="post-card">
+                <div class="post-image">
+                    <img src="${blog.imgPath_url}" alt="${blog.title}">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="date">${blog.created_at}</span>
+                        <span class="category">${blog.category}</span>
+                        <span id="blog-id" hidden>${blog.id}</span>
+                    </div>
+                    <h2>${blog.title}</h2>
+                    <h5>${blog.username}</h5>
+                    <p>${slicedBlogContent}</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>    
+            </article>
+        `;
+    }).join('');
+
+    // Update the container with the generated HTML
+    blogsContainer.innerHTML = blogsHTML;
+
 }
 // Function to display blogs
 function displayBlogs(blogs) {
@@ -61,24 +74,30 @@ function displayBlogs(blogs) {
         return;
     }
     //create an array of blog content converted to string
-    blogsContainer.innerHTML = blogs.slice(0, 4).map(blog => `
-        <article class="post-card">
-        <div class="post-image">
-            <img src="${blog.imgPath_url}">
-        </div>
-        <div class="post-content">
-            <div class="post-meta">
-                <span class="date">${blog.created_at}</span>
-                <span class="category">${blog.category}</span>
-                <span id="blog-id" hidden>${blog.id}</span>
-            </div>
-            <h2>${blog.title}</h2>
-            <h5>${blog.username}</h5>
-            <p>${blog.content}</p>
-            <a href="#" class="read-more">Read More</a>
-        </div>    
-        </article>
-    `).join('');
+    const blogsHTML = blogs.slice(0, 4).map(blog => {
+        const slicedBlogContent = (sliceWords(blog.content)) + "..."; // Call sliceWords inside the loop
+        return `
+            <article class="post-card">
+                <div class="post-image">
+                    <img src="${blog.imgPath_url}" alt="${blog.title}">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="date">${blog.created_at}</span>
+                        <span class="category">${blog.category}</span>
+                        <span id="blog-id" hidden>${blog.id}</span>
+                    </div>
+                    <h2>${blog.title}</h2>
+                    <h5>${blog.username}</h5>
+                    <p>${slicedBlogContent}</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>    
+            </article>
+        `;
+    }).join('');
+
+    // Update the container with the generated HTML
+    blogsContainer.innerHTML = blogsHTML;
 }
 
 function displayArticleBlogs(blogs) {

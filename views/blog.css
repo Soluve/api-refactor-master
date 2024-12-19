@@ -72,7 +72,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #2b6cb0 0%, #4299e1 100%);
+    background-image: url(images/shutterstock_1430140211.jpg);
     color: white;
     padding: 4rem 0;
     text-align: center;
@@ -338,7 +338,7 @@ body {
 }
 
 .modal-body {
-    margin-top: 20px;
+    margin: 20px 20px;
 }
 
 .modal-loading {
@@ -398,6 +398,12 @@ body.modal-open {
     .newsletter-form {
         flex-direction: column;
         padding: 0 1rem;
+    }
+    /* .modal-content{
+        width: 100%;
+    } */
+    .modal-body {
+        margin: 20px 0;
     }
 }
 
